@@ -18,6 +18,13 @@ export interface ServerParameters {
   created_at: string;
   profile_uuid: string;
   status: string;
+  oauth_tokens?: {
+    access_token: string;
+    token_type: string;
+    expires_in?: number | undefined;
+    scope?: string | undefined;
+    refresh_token?: string | undefined;
+  } | null;
 }
 
 let _mcpServersCache: Record<string, ServerParameters> | null = null;

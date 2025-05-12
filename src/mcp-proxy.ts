@@ -40,7 +40,7 @@ export const createServer = async () => {
   const server = new Server(
     {
       name: "MetaMCP",
-      version: "0.4.5",
+      version: "0.5.0",
     },
     {
       capabilities: {

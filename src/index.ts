@@ -27,6 +27,10 @@ program
   .option("--transport <type>", "Transport type to use (stdio or sse)", "stdio")
   .option("--port <port>", "Port to use for SSE transport", "3001")
   .option("--require-api-auth", "Require API key in SSE URL path")
+  .option(
+    "--use-docker-host",
+    "Transform localhost URLs to use host.docker.internal (can also be set via USE_DOCKER_HOST env var)"
+  )
   .parse(process.argv);
 
 const options = program.opts();
@@ -37,6 +41,9 @@ if (options.metamcpApiKey) {
 }
 if (options.metamcpApiBaseUrl) {
   process.env.METAMCP_API_BASE_URL = options.metamcpApiBaseUrl;
+}
+if (options.useDockerHost) {
+  process.env.USE_DOCKER_HOST = "true";
 }
 
 async function main() {
