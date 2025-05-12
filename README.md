@@ -61,6 +61,16 @@ mcp-server-metamcp --metamcp-api-key <your-api-key> --transport sse --port 12006
 
 With the SSE transport option, the server will start an Express.js web server that listens for SSE connections on the `/sse` endpoint and accepts messages on the `/messages` endpoint.
 
+### Using with Docker
+
+When running the server inside a Docker container and connecting to services on the host machine, use the `--use-docker-host` option to automatically transform localhost URLs:
+
+```bash
+mcp-server-metamcp --metamcp-api-key <your-api-key> --transport sse --port 12006 --use-docker-host
+```
+
+This will transform any localhost or 127.0.0.1 URLs to `host.docker.internal`, allowing the container to properly connect to services running on the host.
+
 ### Command Line Options
 
 ```
@@ -70,6 +80,8 @@ Options:
   --report                      Fetch all MCPs, initialize clients, and report tools to MetaMCP API
   --transport <type>            Transport type to use (stdio or sse) (default: "stdio")
   --port <port>                 Port to use for SSE transport (default: "12006")
+  --require-api-auth            Require API key in SSE URL path
+  --use-docker-host             Transform localhost URLs to use host.docker.internal (can also be set via USE_DOCKER_HOST env var)
   -h, --help                    display help for command
 ```
 
@@ -77,6 +89,7 @@ Options:
 
 - `METAMCP_API_KEY`: API key for MetaMCP
 - `METAMCP_API_BASE_URL`: Base URL for MetaMCP API
+- `USE_DOCKER_HOST`: When set to "true", transforms localhost URLs to host.docker.internal for Docker compatibility
 
 ## Development
 
